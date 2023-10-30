@@ -8,11 +8,11 @@
 </head>
 
 <body>
-    <h1>Test</h1>
+    <h1>Detail</h1>
     <p>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique
         nulla officia alias veniam. A, tempora?
-        <a href="{{route('detail')}}">Detail</a>
+        <a href="{{route('test')}}">Test</a>
     </p>
 </body>
 
