@@ -8,14 +8,7 @@
 </head>
 
 <body>
-    <div>
-        <p>
-            <a href="{{route('login')}}">Login</a>
-        </p>
-        <p>
-            <a href="{{route('register')}}">Register</a>
-        </p>
-    </div>
+    WELCOME
 </body>
 
 </html>
