@@ -14,7 +14,6 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Price ($)</th>
-                                    <th scope="col">Edit ($)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -23,7 +22,8 @@
                                         <th scope="row">{{ $book->id }}</th>
                                         <td>{{ $book->name }}</td>
                                         <td>{{ $book->price }}</td>
-                                        <td><a href="">Edit</a></td>
+                                        <td><a href="{{ route('edit', $book->id) }}" class="btn btn-info">Edit</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

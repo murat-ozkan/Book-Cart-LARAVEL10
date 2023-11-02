@@ -30,12 +30,14 @@ Route::get('/', function () {
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('test', [TestController::class, 'test'])->name('test');
     Route::get('detail', [TestController::class, 'detail'])->name('detail');
-    Route::get('books', [BookController::class, 'index'])->name('books');
-    Route::get('books/add', [BookController::class, 'add'])->name('add');
-    Route::post('books/add', [BookController::class, 'store'])->name('store');
+
+    Route::get('books', [BookController::class, 'index'])->name('books.index');
+
+    Route::get('books/create', [BookController::class, 'create'])->name('create');
+    Route::post('books/create', [BookController::class, 'store'])->name('store');
 
     Route::get('books/{id}', [BookController::class, 'edit'])->name('edit');
-    // Route::post('books/{id}', [BookController::class, 'edit'])->name('edit');
+    Route::post('books/{id}', [BookController::class, 'update'])->name('update');
 });
 
 Auth::routes();
