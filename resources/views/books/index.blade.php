@@ -5,7 +5,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Book List') }}</div>
+                    <div class="card-header">
+                        <div class="row">
+                            <h3 class="col-6">{{ __('Book List') }}</h3>
+                            <div class="col-6 d-flex justify-content-end">
+                                <a href="{{ route('create') }}" class="btn btn-primary">Add Book</a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="card-body">
                         <table class="table table-striped">
@@ -23,6 +30,7 @@
                                         <td>{{ $book->name }}</td>
                                         <td>{{ $book->price }}</td>
                                         <td><a href="{{ route('edit', $book->id) }}" class="btn btn-info">Edit</a>
+                                        <td><a href="{{ route('delete', $book->id) }}" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

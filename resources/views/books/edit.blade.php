@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-6">{{ __('Edit Book') }}</div>
+                            <h3 class="col-6">{{ __('Edit Book') }}</h3>
                             <div class="col-6 d-flex justify-content-end">
                                 <a href="{{ route('books.index') }}" class="btn btn-primary">Go To Books</a>
                             </div>

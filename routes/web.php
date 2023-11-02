@@ -38,6 +38,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('books/{id}', [BookController::class, 'edit'])->name('edit');
     Route::post('books/{id}', [BookController::class, 'update'])->name('update');
+
+    Route::get('books/delete/{id}', [BookController::class, 'destroy'])->name('delete');
 });
 
 Auth::routes();

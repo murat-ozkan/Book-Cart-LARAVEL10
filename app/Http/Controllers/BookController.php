@@ -83,6 +83,8 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Book::findOrFail($id)->delete();
+
+        return redirect()->back();
     }
 }

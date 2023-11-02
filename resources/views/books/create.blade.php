@@ -5,7 +5,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Add Book') }}</div>
+                    <div class="card-header">
+                        <div class="row">
+                            <h3 class="col-6 ">{{ __('Add Book') }}</h3>
+                            <div class="col-6 d-flex justify-content-end">
+                                <a href="{{ route('books.index') }}" class="btn btn-primary">Book List</a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="card-body">
                         <form action="{{ route('store') }}" method="POST">
