@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Models\Book;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +30,12 @@ Route::get('/', function () {
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('test', [TestController::class, 'test'])->name('test');
     Route::get('detail', [TestController::class, 'detail'])->name('detail');
+    Route::get('books', [BookController::class, 'index'])->name('books');
+    Route::get('books/add', [BookController::class, 'add'])->name('add');
+    Route::post('books/add', [BookController::class, 'store'])->name('store');
+
+    Route::get('books/{id}', [BookController::class, 'edit'])->name('edit');
+    // Route::post('books/{id}', [BookController::class, 'edit'])->name('edit');
 });
 
 Auth::routes();
