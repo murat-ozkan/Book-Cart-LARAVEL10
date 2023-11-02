@@ -22,7 +22,8 @@ class BookController extends Controller
         //     ->get();
 
         //? Model üzerinden çağırmak daha yaygın. Modeller, veritabanı tablolarını temsil eden Laravel sınıflarıdır.
-        $books = Book::get(); // SQL sorgusu olsaydı; select * from books
+        //v1 $books = Book::where('is_deleted', 0)->get(); // SQL sorgusu olsaydı; select * from books
+        $books = Book::NotDeleted()->get();
         return view('books.index', compact('books'));
     }
 
@@ -61,7 +62,8 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        $book = Book::findOrFail($id);
+        //v1 $book = Book::findOrFail($id);
+        $book = Book::NotDeleted()->findOrFail($id);
         return view('books.edit', compact('book'));
     }
 
@@ -70,7 +72,8 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $book = Book::findOrFail($id);
+        //v1 $book = Book::findOrFail($id);
+        $book = Book::NotDeleted()->findOrFail($id);
         $book->name = $request->name;
         $book->price = $request->price;
         $book->save();
@@ -83,8 +86,14 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        Book::findOrFail($id)->delete();
+        $book = Book::findOrFail($id);
+        $book->is_deleted = 1; //? veya ->update(['is_deleted' => 0])
+        $book->save();
 
         return redirect()->back();
     }
+    //v1 {
+    //     Book::findOrFail($id)->delete();
+    //     return redirect()->back();
+    // }
 }
