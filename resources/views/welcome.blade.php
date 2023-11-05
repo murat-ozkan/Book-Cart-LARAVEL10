@@ -8,7 +8,8 @@
 </head>
 
 <body>
-    WELCOME
+    WELCOME to home page
+    <a href="home">Go to Real Home</a>
 </body>
 
 </html>

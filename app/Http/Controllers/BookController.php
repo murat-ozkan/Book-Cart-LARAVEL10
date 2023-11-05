@@ -24,7 +24,12 @@ class BookController extends Controller
 
         //? Model üzerinden çağırmak daha yaygın. Modeller, veritabanı tablolarını temsil eden Laravel sınıflarıdır.
         //v1 $books = Book::where('is_deleted', 0)->get(); // SQL sorgusu olsaydı; select * from books
-        $books = Book::NotDeleted()->get();
+        // $books = Book::NotDeleted()->get();
+        // return view('books.index', compact('books'));
+
+        //? DB relationships ekledikten sonra sadece mevcut kullanıcıya ait kitapları göstermek istersek.
+        $user = auth()->user(); // Burada oturumu açan userı bulduk.
+        $books = $user->books()->NotDeleted()->get(); // mevcut userın kitaplarına erişim sağladık. Karıştı biraz.
         return view('books.index', compact('books'));
     }
 
@@ -44,6 +49,7 @@ class BookController extends Controller
         $book = new Book();
         $book->name = $request->name;
         $book->price = $request->price;
+        $book->user_id = auth()->id(); // Oturum sahibin IDsine ulaştık.
         $book->save();
         //! class yöntemi kullandık. Eloquent ORM Model yeni veri ekleme.
 

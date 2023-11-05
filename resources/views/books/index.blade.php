@@ -19,6 +19,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">Added by</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Price ($)</th>
                                 </tr>
@@ -27,6 +28,7 @@
                                 @foreach ($books as $book)
                                     <tr>
                                         <th scope="row">{{ $book->id }}</th>
+                                        <td>{{ $book->user->name }}</td>
                                         <td>{{ $book->name }}</td>
                                         <td>{{ $book->price }}</td>
                                         <td><a href="{{ route('edit', $book->id) }}" class="btn btn-info">Edit</a>
