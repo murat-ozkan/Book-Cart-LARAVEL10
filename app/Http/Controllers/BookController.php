@@ -70,7 +70,11 @@ class BookController extends Controller
     public function edit(string $id)
     {
         //v1 $book = Book::findOrFail($id);
-        $book = Book::NotDeleted()->findOrFail($id);
+        // $book = Book::NotDeleted()->findOrFail($id);
+        // return view('books.edit', compact('book'));
+
+        $user = auth()->user(); // url üzerinden book id ile herkes düzenleme yapamasın. 
+        $book = $user->books()->NotDeleted()->findOrFail($id); // Sadece bu user yapabilsin. User üzerinden kitaplara ulaşma.
         return view('books.edit', compact('book'));
     }
 
@@ -80,11 +84,17 @@ class BookController extends Controller
     public function update(Request $request, string $id)
     {
         //v1 $book = Book::findOrFail($id);
-        $book = Book::NotDeleted()->findOrFail($id);
+        // $book = Book::NotDeleted()->findOrFail($id);
+        // $book->name = $request->name;
+        // $book->price = $request->price;
+        // $book->save();
+        // return redirect()->back();
+
+        $user = auth()->user(); // web inspect üzerinden herkes düzenleme yapamasın. Post işlemi yapılabilir çünkü.
+        $book = $user->books()->NotDeleted()->findOrFail($id); // Sadece bu user yapabilsin. User üzerinden kitaplara ulaşma.
         $book->name = $request->name;
         $book->price = $request->price;
         $book->save();
-
         return redirect()->back();
     }
 
