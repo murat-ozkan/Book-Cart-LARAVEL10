@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
@@ -28,8 +29,21 @@ class BookController extends Controller
         // return view('books.index', compact('books'));
 
         //? DB relationships ekledikten sonra sadece mevcut kullanıcıya ait kitapları göstermek istersek.
-        $user = auth()->user(); // Burada oturumu açan userı bulduk.
-        $books = $user->books()->NotDeleted()->get(); // mevcut userın kitaplarına erişim sağladık. Karıştı biraz.
+        // $user = auth()->user(); // Burada oturumu açan userı bulduk.
+        // $books = $user->books()->NotDeleted()->get(); // mevcut userın kitaplarına erişim sağladık. Karıştı biraz.
+        // return view('books.index', compact('books'));
+
+        //! Cache kullanalım ve sürekli dbDen veri çekmeyelim.
+        $user = auth()->user();
+
+        if (!Cache::has('books')) {
+            $books = $user->books()->NotDeleted()->get();
+            Cache::put('books', $books, 3600);
+            dd('ife girdik');
+        } else {
+            $books = Cache::get('books');
+            dd('else girdik');
+        }
         return view('books.index', compact('books'));
     }
 
@@ -53,6 +67,7 @@ class BookController extends Controller
         $book->save();
         //! class yöntemi kullandık. Eloquent ORM Model yeni veri ekleme.
 
+        Cache::delete('books');
         return redirect()->back();
     }
 
@@ -95,6 +110,8 @@ class BookController extends Controller
         $book->name = $request->name;
         $book->price = $request->price;
         $book->save();
+        Cache::delete('books');
+
         return redirect()->back();
     }
 
@@ -106,6 +123,7 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $book->is_deleted = 1; //? veya ->update(['is_deleted' => 0])
         $book->save();
+        Cache::delete('books');
 
         return redirect()->back();
     }
