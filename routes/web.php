@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Middleware;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
@@ -20,14 +22,14 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 // Route::controller(TestController::class)->group(function () {
 //     Route::get('admin/test', 'test')->name('test');
 //     Route::get('admin/detail', 'detail')->name('detail');
 // });
 
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware('admin')->group(function () {
     Route::get('test', [TestController::class, 'test'])->name('test');
     Route::get('detail', [TestController::class, 'detail'])->name('detail');
 

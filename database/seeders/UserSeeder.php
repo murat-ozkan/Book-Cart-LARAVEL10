@@ -19,12 +19,14 @@ class UserSeeder extends Seeder
                 [
                     'name' => 'Murat',
                     'email' => 'murat@php.com',
-                    'password' => bcrypt('12345678')
+                    'password' => bcrypt('12345678'),
+                    'role' => 'admin'
                 ],
                 [
                     'name' => 'Ozkan',
                     'email' => 'ozkan@php.com',
-                    'password' => bcrypt('12345678')
+                    'password' => bcrypt('12345678'),
+                    'role' => 'admin'
                 ]
             ]
         );

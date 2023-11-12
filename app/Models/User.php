@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -48,4 +49,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Book::class);
     }
+
+    public function isAdmin()
+    {
+        return $this->role == 'admin';
+    }
+
+    public function scopeAdmins($query)
+    {
+        return $query->where('role', 'admin');
+    }
 }
+
