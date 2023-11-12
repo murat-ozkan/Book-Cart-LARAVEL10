@@ -16,18 +16,18 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->role == 'admin')
-            return $next($request);
-        return redirect('home');
+        // if (auth()->check() && auth()->user()->role == 'admin')
+        //     return $next($request);
+        // return redirect('home');
 
         //! user admin kontrolünü bir fonk yardımıyla yaparsak (User model içerisinde isAdmin oluşturduk)
 
         // ! Aşağıdaki satırlar çalışmadı. İptal ettim.
 
-        // if (auth()->check() && auth()->user()->isAdmin()) // Kullanıcı admin ise isteği yerine getir.
-        // {
-        //     return $next($request);
-        // }
-        // return redirect('home'); // Kullanıcı admin değilse home yönlendir
+        if (auth()->check() && auth()->user()->isAdmin()) // Kullanıcı admin ise isteği yerine getir.
+        {
+            return $next($request);
+        }
+        return redirect('home'); // Kullanıcı admin değilse home yönlendir
     }
 }
