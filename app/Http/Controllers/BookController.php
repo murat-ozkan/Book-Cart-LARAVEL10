@@ -39,10 +39,8 @@ class BookController extends Controller
         if (!Cache::has('books')) {
             $books = $user->books()->NotDeleted()->get();
             Cache::put('books', $books, 3600);
-            dd('ife girdik');
         } else {
             $books = Cache::get('books');
-            dd('else girdik');
         }
         return view('books.index', compact('books'));
     }
